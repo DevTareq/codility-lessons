@@ -1,2 +1,2 @@
 # codility-lessons
-Codility Programmers Lessons
+Codility Programming Lessons
