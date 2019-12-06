@@ -1,0 +1,50 @@
+function solution($X, $A) {
+    
+    $checksArray = [];
+    
+    for ($i = 0; $i < count($A); $i++) {
+        $checksArray[$i] = 0; 
+    }    
+            
+    for ($i=0; $i < count($A); $i++) {
+        
+        if ($checksArray[$A[$i]] == 0) {
+            $checksArray[$A[$i]] = 1;
+            $X--;
+        }
+        
+        if ($X == 0) {
+            return $i;
+        }
+    }
+    
+    return -1;
+}
+
+// reference 
+https://github.com/jimii/codility/blob/master/FrogRiverOne/php/FrogRiverOne.php
+
+******************************************* SOLUTION ***********************************************
+
+function solution($X, $A) {
+    
+    $checksArray = [];
+    
+    for ($i = 0; $i < count($A); $i++) {
+        $checksArray[$i] = 0; 
+    }    
+            
+    for ($i=0; $i < count($A); $i++) {
+        
+        if ($checksArray[$A[$i]] == 0) {
+            $checksArray[$A[$i]] = 1;
+            $X--;
+        }
+        
+        if ($X == 0) {
+            return $i;
+        }
+    }
+    
+    return -1;
+}
