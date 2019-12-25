@@ -18,44 +18,32 @@ N is an integer within the range [1..2,147,483,647].
 
 ***************************************** SOLUTION *************************************************
 
-function solution($N) {
-    
-    $maximum = 0;
-    
-    if ($N >= 1 && $N <= 2147483647 && is_integer($N)) {
-             
-        $N = (float) $N;
-        $binary = decbin($N) ?? 0;
-        $binary = array_map('intval', str_split($binary));
+    $gaps = [];
 
+    if (is_integer($N) && ($N >= 1 && $N <= 2147483647)) {
+
+        $binary = decbin($N);
+        $length = strlen($binary);
         $hasOne = false;
+        $zeros  = 0;
 
-        $zeros = 0;
-        
-        foreach ($binary as $key => $digit) {
+        for ($i = 0; $i < $length; $i++) {
 
-            if ($digit == 1) {
+            if ($binary[$i] == 1) {
 
                 if (!$hasOne) {
-                      $hasOne = true;
-                      continue;
+                    $hasOne = true;
+                    continue;
                 }
 
-                if ($hasOne) {
-
-                    if ($zeros > $maximum) {
-                        $maximum = $zeros;   
-                    }
-
-                    $zeros = 0;
-                }  
-
-            } else if ($digit == 0) {
-
-                $zeros +=1;
+                $gaps[] = $zeros;
+                $zeros  = 0;
+                continue;
             }
+
+            $zeros++;
         }
     }
-    
-    return $maximum;
+
+    return (empty($gaps) ? 0 : max($gaps));
 }
