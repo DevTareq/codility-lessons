@@ -41,38 +41,40 @@ In your solution, focus on correctness. The performance of your solution will no
 
 *********************************************** SOLUTION *************************************************
 
-function solution($A, $K) {
- 
-    $rotatedArray = [];  
-    
-    if (!empty($A) && is_array($A) && (sizeof($A) >= 0 && sizeof($A <= 100)) 
-        && (is_integer($K) && $K >= 0 && $K <= 100)) {
-        
-        if ($K == 0) {
-            return $A;
-        }
-    
-        while ($K > 0) {
-            
-            $lastEelement = $A[sizeof($A) - 1];
-            $rotatedArray[0] = $lastEelement;
-
-            if (isset($A[sizeof($A) - 1])) {
-                unset($A[sizeof($A) - 1]);
-            }
-
-            foreach ($A as $key => $value) {
-                
-               if (is_integer($value) && ($value >= -1000 && $value <= 1000)) {
-                    $rotatedArray[$key + 1] = $value;
-               }
-            }
-
-            $A = $rotatedArray;
-
-            $K--;
-        }
+function solution($A, $K)
+{
+    if (empty($A)) {
+        return [];
     }
-    
-    return $rotatedArray;
+
+    $length       = count($A);
+    $rotatedArray = [];
+
+    if ((!is_integer($length) || ($length < 0 || $length > 100)) ||
+        (!is_integer($K) || ($K < 0 || $K > 100))
+    ) {
+        return [];
+    }
+
+    while ($K > 0) {
+
+        $lastElement     = $A[$length - 1];
+        $rotatedArray[0] = $lastElement;
+
+        for ($i = 0; $i < $length - 1; $i++) {
+
+            if (!is_integer($A[$i]) || ($A[$i] < -abs(1000) || $A[$i] > 1000)) {
+                return [];
+            }
+
+            $rotatedArray[] = $A[$i];
+        }
+
+        $A            = $rotatedArray;
+        $rotatedArray = [];
+
+        $K--;
+    }
+
+    return $A;
 }
