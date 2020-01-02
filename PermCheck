@@ -48,41 +48,33 @@ each element of array A is an integer within the range [1..1,000,000,000].
 **************************************** SOLUTION ************************************************
 function solution($A) {
  
-    $permutation = 0;
-
     if (empty($A)) {
-        return $permutation;   
+        return 0;
     }
 
     sort($A);
-    $memory = [];
-    
-    
-    if (sizeof($A) >=1 && sizeof($A) <= 100000) {
-        
-        foreach ($A as $key => $value) {
-            
-            if (is_integer($value) && ($value >= 1 && $value <= 1000000000)) {
-                
-                if (in_array($value, $memory)) {
-                     return 0;
-                }
 
-                if (isset($A[$key + 1])) {
-                    if ($A[$key + 1] != ($value + 1)) {
-                        return 0;
-                    }
-                } else {
-                    
-                    if (($key + 1) < 2 && $value > 1) {
-                        
-                        return 0;
-                    }
-                }
-                
-            }            
-        }
+    $length = count($A);
+
+    if ($length < 1 || $length > 100000) {
+        return 0;
     }
-    
+
+    $j         = 1;
+    $tmpNumber = 0;
+
+    for ($i = 0; $i < $length; $i++, $j++) {
+
+        if (!is_integer($A[$i]) || ($A[$i] < 1 || $A[$i] > 1000000000)) {
+            return 0;
+        }
+
+        if (($j !== $A[$i]) || ($tmpNumber == $A[$i])) {
+            return 0;
+        }
+
+        $tmpNumber = $A[$i];
+    }
+
     return 1;
 }
